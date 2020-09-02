@@ -12,8 +12,8 @@
   - object (complex type with properties (key-value))
   - symbol (type for unique ids)
 
-  typeof NaN - "number"  
-  typeof Null - "object", but it's language mistake
+  `typeof NaN` - "number"  
+  `typeof Null` - "object", but it's language mistake
 </details>
 
 - <details>
@@ -49,7 +49,7 @@
   - == 
   uses non-strict comparison with type conversion
   - ===
-  uses sctrict comparsion, different types returns false
+  uses strict comparison, different types returns false
 
   NB:
   ```javascript
@@ -63,8 +63,8 @@
     ✔️ В чем разница между null и undefined?
   </summary>
 
-  null - empty value  
-  undefined - declared and not assigned variable
+  `null` - empty value  
+  `undefined` - declared and not assigned variable
 </details>
 
 * <details>
@@ -72,20 +72,96 @@
     ✔️ В чем разница между переменными, созданными с помощью let, var или const? Хоистинг переменных.
   </summary>
 
-  let and const may be used inside curved brackets {} where they declared and initialized (ReferenceError otherwise).
-  let variable can be reassigned, const variable can not be reassigned.  
-  var have weird and hardly controlled behaviour, better don't use it.  
+  *let* and *const* may be used inside curved brackets {} where they declared and initialized (ReferenceError otherwise).
+  *let* variable can be reassigned, *const* variable cannot be reassigned.  
+  *var* have weird and hardly controlled behaviour, better don't use it.  
 
-  Hoisting moves variable declarations to the top of code. That makes possible to use variables before declaration. But hoisting does not working for initializing. Also hoisting does not working for let and const.  
+  Hoisting moves variable declarations to the top of the code. That makes possible to use variables before declaration. But hoisting does not work for initializing. Also hoisting does not working for *let* and *const*.  
 
-  As good rule: **always declare all variables at the beginning of every scope.**
+  As a good rule: **always declare all variables at the beginning of every scope.**
 
   strict mode blocks opportunity to use variable before declaration.
 
 </details>
 
-* ❌ Use strict. Что это? Приведите пример разного поведения строго режима и обычного.
-* ❌ Виды функций. Отличие стрелочных функций. Что такое и в чем разница между Function Expression и Function Declaration?
+* <details>
+  <summary>
+  ✔️ Use strict. Что это? Приведите пример разного поведения строго режима и обычного.
+  </summary>
+
+  Strict mode makes the code more secure by throwing errors in some cases, which works in standard mode.  
+  Activated by using directive only at the beginning of script or function  
+  `"use strict";`
+
+  example:
+  ```javascript
+  str = 'str1'; // creates var str
+  ```
+  ```javascript
+  "use strict";
+  str = 'str2'; // cause error
+  ```
+
+  List of differences:
+    - Using a variable/object, without declaring it, is not allowed
+    - Assignment to a non-writable global is not allowed
+    - Deleting a variable/object/function is not allowed
+    - Duplicating a parameter name(functions)/a property name(objects) is not allowed
+    - Octal numeric literals and escape characters are not allowed
+    - Writing to a read-only/get-only property of objects is not allowed:
+    - Deleting an undeletable property is not allowed
+    - The with statement is not allowed
+    - Words that can **not** be used as variable:
+      - eval
+      - arguments
+      - implements
+      - interface
+      - let
+      - package
+      - private
+      - protected
+      - public
+      - static
+      - yield 
+</details>
+
+* <details>
+  <summary>
+    ✔️ Виды функций. Отличие стрелочных функций. Что такое и в чем разница между Function Expression и Function Declaration?
+  </summary>
+
+  There are two types of functions based on their creation:
+  - Function Declaration
+  - Function Expression
+
+  The table below shows the difference:
+  | Feature | Function Declaration | Function Expression |
+  | --- |:---:| :---:|
+  | Function need name (can't be anonymous)  | ✔️ | ❌ |
+  | Hoisting | ✔️ | ❌ |
+  | Global scoped | ✔️ | ❌ |
+  | IIFE (immediately invoked function expressions) | ❌ | ✔️ |
+  
+   Examples:
+   ```javascript
+  // Function Declaration
+  function doSomething() {
+    // code
+  };
+  // Function Expression
+  const doSomething = function() {
+    // code
+  };
+  ```
+
+  Arrow function it's shorthand for Function Expression  
+  ```javascript
+  const doSomething = function() {/*code*/}; // Standard function expression
+  const doSomething = () => {/*code*/}; // Arrow function expression
+  ```
+
+</details>
+
 * ❌ Что такое this? Методы привязки контекста и их различие?
 * ❌ Замыкания. Что это такое? Задачки: написать функцию которая работает таким образом: multiply(7)(3)(2) => 42.
 * ❌ Прототипы, прототипное наследование. Перебираем обьект, как определить чье поле, обьекта или прототипа? Написать функцию, которая отработает следующим образом: 4.plus(2).minus(1) => 5

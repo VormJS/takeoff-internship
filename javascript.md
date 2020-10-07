@@ -162,8 +162,54 @@
 
 </details>
 
-* ❌ Что такое this? Методы привязки контекста и их различие?
-* ❌ Замыкания. Что это такое? Задачки: написать функцию которая работает таким образом: multiply(7)(3)(2) => 42.
+* <details>
+  <summary>
+    ✔️ Что такое this? Методы привязки контекста и их различие?
+  </summary>
+
+  `this` is a reference to the object itself, from which it is called.
+  Behaviour depends on where it uses:
+
+  | Place | Reference |
+  | :---: |:---:|
+  | method  | owner object |
+  | global | global object |
+  | function | global object (non-strict) /	undefined (strict) |
+  | arrow function | keeps previous context |
+  | event | element (which have attached event) |
+  
+  Also, there are methods `call()` and `apply()`.
+  They can be used to replace the default `this` object with a given as parameter.
+  `bind()` method allows copy function with replaced `this`, that works only once (can’t be replaced again after first `bind()`)
+
+</details>
+
+* <details>
+  <summary>
+    ✔️ Замыкания. Что это такое? Задачки: написать функцию которая работает таким образом: multiply(7)(3)(2) => 42.
+  </summary>
+
+  The `closure` is an instrument to define inner and outer function context. It gives opportunity for a function to get access to outer scope and keep in memory inner scope.
+
+  NB: If there are variables with the same name in outer and inner function scope, function priors inner variable, when it calls (way from inner scope to global scope)
+
+  function:
+  ```
+  function multiply(number) {
+    let savedNumber = 1
+
+    function multiplyBase(num) {
+      savedNumber *= num
+      return multiplyBase
+    }
+
+    multiplyBase.toString = () => savedNumber
+  
+    return multiplyBase(number);
+  }
+  ```
+
+</details>
 * ❌ Прототипы, прототипное наследование. Перебираем обьект, как определить чье поле, обьекта или прототипа? Написать функцию, которая отработает следующим образом: 4.plus(2).minus(1) => 5
 ---
 * ❌ typeof([]). Как отличить массив от обьекта?

@@ -210,10 +210,81 @@
   ```
 
 </details>
-* ❌ Прототипы, прототипное наследование. Перебираем обьект, как определить чье поле, обьекта или прототипа? Написать функцию, которая отработает следующим образом: 4.plus(2).minus(1) => 5
+
+* <details>
+  <summary>
+    ✔️ Прототипы, прототипное наследование. Перебираем обьект, как определить чье поле, обьекта или прототипа? Написать функцию, которая отработает следующим образом: 4.plus(2).minus(1) => 5
+  </summary>
+
+  A `prototype` is an object that grants properties and methods for derivative object. Class inheritance implemented in JavaScript via `prototype inheritance`. Prototypes form a chain till they reach `null` as final link.
+
+  Method `hasOwnProperty()` allow to determine is a given property own or belongs to prototype.  
+  The usage `for .. in` cycle combined with `hasOwnProperty()` method might be handy, for example:
+  ```javascript
+  function determineObjectOwnProps(obj){
+    const props = [];
+    for (const prop in obj) {
+      props.push({property: prop, own: obj.hasOwnProperty(prop)})
+    }
+    console.table(props);
+  }
+  ```
+  For getting array of own keys might be used `Object.keys()` or `Object.getOwnPropertyNames()` methods.
+
+  For implementing `4.plus(2).minus(1)` we should modify `Number` prototype with additional methods `plus` and `minus`, but the number must be wrapped in the brackets `()` for correct working.
+  ```javascript
+  Number.prototype.plus = function(num) {return this + num}
+  Number.prototype.minus = function(num) {return this - num}
+  console.log((4).plus(2).minus(1))
+  console.log((120).minus(79).plus(6))
+  ```
+
+</details>
+
 ---
-* ❌ typeof([]). Как отличить массив от обьекта?
-* ❌ Как скопировать обьект в другой обьект? Передача по ссылке. Написать функцию которая работает как Object.assign, которая скопирует поля обьекта в другой обьект с любой вложенностью.
+* <details>
+  <summary>
+    ✔️ typeof([]). Как отличить массив от обьекта?
+  </summary>
+
+  `typeof([])` returns `object`.
+  In this case might be used `Array.isArray()` method
+  ```javascript
+  console.log(Array.isArray([]))
+  console.log(Array.isArray({}))
+  ```
+
+</details>
+
+* <details>
+  <summary>
+    ✔️ Как скопировать обьект в другой обьект? Передача по ссылке. Написать функцию которая работает как Object.assign, которая скопирует поля обьекта в другой обьект с любой вложенностью.
+  </summary>
+
+  The easiest way for object copying is method `Object.assign()`, but it does not work properly with nested objects (all nested objects keeps links)
+
+  There are different ways for deep copying: using special libraries or using `JSON.parse(JSON.stringify())`.  
+  Also, there is an option to write recursive function:
+  ```javascript
+  function deepCopy(obj) {
+    if (typeof obj === 'object' || obj === null) {
+      const objCopy = {};
+      Object.keys(obj).forEach(prop => {
+        objCopy[prop] = deepCopy(obj[prop])
+      })
+      return objCopy;
+    } else if (Array.isArray(obj)) {
+      return objCopy = obj.map(elem => {
+        return deepCopy(elem);
+      });
+    } else {
+      return obj;
+    }
+  }
+  ```
+
+</details>
+
 * ❌ Методы массивов. (Задачки)
 * ❌ Способы сделать из объекта массив.
 * ❌ Реализовать любую функцию из перебирающих методов: например map, reduce, filter, чтобы она вызывалась у массивов как и полагается: arr.reduce, arr.filter.

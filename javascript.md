@@ -285,9 +285,45 @@
 
 </details>
 
-* ❌ Методы массивов. (Задачки)
-* ❌ Способы сделать из объекта массив.
-* ❌ Реализовать любую функцию из перебирающих методов: например map, reduce, filter, чтобы она вызывалась у массивов как и полагается: arr.reduce, arr.filter.
+* <details>
+  <summary>
+    ❌ Методы массивов. (Задачки)
+  </summary>
+
+  ???
+
+</details>
+
+* <details>
+  <summary>
+    ❌ Способы сделать из объекта массив.
+  </summary>
+
+  ???
+
+</details>
+
+* <details>
+  <summary>
+    ✔️ Реализовать любую функцию из перебирающих методов: например map, reduce, filter, чтобы она вызывалась у массивов как и полагается: arr.reduce, arr.filter.
+  </summary>
+
+  ```javascript
+  const arr = [0,1,2,3,4,5,6,7,8,9]
+
+  arrQuadrupled = arr.map(elem => elem*4);
+  arrSummarized = arr.reduce((sum, elem) => elem += sum, 0);
+  arrEvenOnly = arr.filter(elem => elem % 2 === 0);
+
+  console.log(`Initial array: ${arr.toString()}`)
+  console.log(`Qudrupled array: ${arrQuadrupled.toString()}`)
+  console.log(`Sum of array: ${arrSummarized.toString()}`)
+  console.log(`Filtered array(even only): ${arrEvenOnly.toString()}`)
+  ```
+
+</details>
+
+ 
 * ❌ Ассинхронность в JS, с помощью чего достигается? Стек вызовов, Web Api, Event Loop, очередь колбеков.
 * ❌ Таймеры в JS. Отличие setInterval от рекурсивного setTimeout.
 * ❌ Как поведёт себя SetTimeout на ноль секунд?

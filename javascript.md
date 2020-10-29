@@ -406,6 +406,301 @@
 
   <details>
     <summary>
+      ✔️ Friend or Foe
+    </summary>
+
+    Description:  
+    Make a program that filters a list of strings and returns a list with only your friends name in it.
+
+    If a name has exactly 4 letters in it, you can be sure that it has to be a friend of yours! Otherwise, you can be sure he's not...
+
+    Ex: Input = ["Ryan", "Kieran", "Jason", "Yous"], Output = ["Ryan", "Yous"]
+
+    i.e.
+
+    ```
+    friend ["Ryan", "Kieran", "Mark"] `shouldBe` ["Ryan", "Mark"]
+    ```
+    Note: keep the original order of the names in the output.    
+
+    Solution:  
+    ```javascript
+    function friend(friends) {
+      return friends.filter(name => name.length === 4);
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Vowel Count
+    </summary>
+
+    Description:  
+    Return the number (count) of vowels in the given string.
+
+    We will consider `a, e, i, o, u` as vowels for this Kata (but not `y`).
+
+    The input string will only consist of lower case letters and/or spaces.
+
+    Solution:  
+    ```javascript
+    function getCount(str) {
+      var vowelsCount = 0;
+
+      str.split('').forEach(symbol => vowelsCount = vowelsCount + ['a', 'e', 'i', 'o', 'u'].includes(symbol));
+
+      return vowelsCount;
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ playing-with-digits
+    </summary>
+
+    Description:  
+    Some numbers have funny properties. For example:
+
+    `89 --> 8¹ + 9² = 89 * 1`
+
+    `695 --> 6² + 9³ + 5⁴= 1390 = 695 * 2`
+
+    `46288 --> 4³ + 6⁴+ 2⁵ + 8⁶ + 8⁷ = 2360688 = 46288 * 51`
+
+    Given a positive integer n written as abcd... (a, b, c, d... being digits) and a positive integer p
+
+    - we want to find a positive integer k, if it exists, such as the sum of the digits of n taken to the successive powers of p is equal to k * n.
+    In other words:
+
+    `Is there an integer k such as : (a ^ p + b ^ (p+1) + c ^(p+2) + d ^ (p+3) + ...) = n * k`
+
+    If it is the case we will return k, if not return -1.
+
+    Note: n and p will always be given as strictly positive integers.
+    ```
+    digPow(89, 1) should return 1 since 8¹ + 9² = 89 = 89 * 1
+    digPow(92, 1) should return -1 since there is no k such as 9¹ + 2² equals 92 * k
+    digPow(695, 2) should return 2 since 6² + 9³ + 5⁴= 1390 = 695 * 2
+    digPow(46288, 3) should return 51 since 4³ + 6⁴+ 2⁵ + 8⁶ + 8⁷ = 2360688 = 46288 * 51
+    ```
+
+    Solution:  
+    ```javascript
+    function digPow(n, p) {
+      const sumOfPows = Array.from(String(n), Number).reduce((sum, digit, index) => sum + digit ** (index + p), 0);
+      return sumOfPows % n === 0 ? sumOfPows / n : -1
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ array-dot-diff
+    </summary>
+
+    Description:  
+    Your goal in this kata is to implement a difference function, which subtracts one list from another and returns the result.
+
+    It should remove all values from list a, which are present in list b.  
+    `arrayDiff([1,2],[1]) == [2]`  
+    If a value is present in b, all of its occurrences must be removed from the other:  
+    `arrayDiff([1,2,2,2,3],[2]) == [1,3]`  
+
+    Solution:  
+    ```javascript
+    function arrayDiff(a, b) {
+      return a.filter(elem => !b.includes(elem))
+    }    
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ find-the-capitals-1
+    </summary>
+
+    Description:  
+    Write a function that takes a single string (word) as argument. The function must return an ordered list containing the indexes of all capital letters in the string.
+
+    Example:  
+    `Test.assertSimilar( capitals('CodEWaRs'), [0,3,4,6] );`
+
+    Solution:  
+    ```javascript
+    var capitals = function (word) {
+      return word.split('').map((symbol, index) => symbol.match(/[A-Z]/g) ? index : -1).filter(index => index >= 0);
+    };
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ insert-dashes
+    </summary>
+
+    Description:  
+    Write a function insertDash(num)/InsertDash(int num) that will insert dashes ('-') between each two odd numbers in num. For example: if num is 454793 the output should be 4547-9-3. Don't count zero as an odd number.
+
+    Note that the number will always be non-negative (>= 0).
+
+    Solution:  
+    ```javascript
+    function insertDash(num) {
+      const regex = /([1|3|5|7|9])([1|3|5|7|9])/g
+      return String(num).replace(regex, "$1-$2").replace(regex, "$1-$2")
+    }
+
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Count the smiley faces
+    </summary>
+
+    Description:  
+    Given an array (arr) as an argument complete the function countSmileys that should return the total number of smiling faces.
+
+    Rules for a smiling face:
+
+    Each smiley face must contain a valid pair of eyes. Eyes can be marked as : or ;
+    A smiley face can have a nose but it does not have to. Valid characters for a nose are - or ~
+    Every smiling face must have a smiling mouth that should be marked with either ) or D
+    No additional characters are allowed except for those mentioned.
+
+    Valid smiley face examples: `:) :D ;-D :~)`
+    Invalid smiley faces: `;( :> :} :]`
+
+    Example  
+    ``` 
+    countSmileys([':)', ';(', ';}', ':-D']);       // should return 2;
+    countSmileys([';D', ':-(', ':-)', ';~)']);     // should return 3;
+    countSmileys([';]', ':[', ';*', ':$', ';-D']); // should return 1;
+    ```
+    Note  
+    In case of an empty array return 0. You will not be tested with invalid input (input will always be an array). Order of the face (eyes, nose, mouth) elements will always be the same.
+
+    Solution:  
+    ```javascript
+    function countSmileys(arr) {
+      return arr.filter(face => face.match(/(\:|\;)(\-|\~)?(\)|D)/)).length
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ homogenous-arrays
+    </summary>
+
+    Description:  
+    Challenge:
+
+    Given a two-dimensional array, return a new array which carries over only those arrays from the original, which were not empty and whose items are all of the same type (i.e. homogenous). For simplicity, the arrays inside the array will only contain characters and integers.
+
+    Example:
+
+    Given [[1, 5, 4], ['a', 3, 5], ['b'], [], ['1', 2, 3]], your function should return [[1, 5, 4], ['b']].
+
+    Addendum:
+
+    Please keep in mind that for this kata, we assume that empty arrays are not homogenous.
+
+    The resultant arrays should be in the order they were originally in and should not have its values changed.
+
+    No implicit type casting is allowed. A subarray [1, '2'] would be considered illegal and should be filtered out.
+
+    
+    Solution:  
+    ```javascript
+    function filterHomogenous(arrays) {
+      return arrays.filter(arr => arr.length > 0 && arr.map(elem => typeof elem).every((val, i , arr) => val === arr[0] ));
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ lottery-ticket
+    </summary>
+
+    Description:  
+    Time to win the lottery!
+
+    Given a lottery ticket (ticket), represented by an array of 2-value arrays, you must find out if you've won the jackpot. Example ticket:
+
+    ```
+    [ [ 'ABC', 65 ], [ 'HGR', 74 ], [ 'BYHT', 74 ] ]
+    ```
+    To do this, you must first count the 'mini-wins' on your ticket. Each sub array has both a string and a number within it. If the character code of any of the characters in the string matches the number, you get a mini win. Note you can only have one mini win per sub array.
+
+    Once you have counted all of your mini wins, compare that number to the other input provided (win). If your total is more than or equal to (win), return 'Winner!'. Else return 'Loser!'.
+
+    All inputs will be in the correct format. Strings on tickets are not always the same length.
+
+    Solution:  
+    ```javascript
+    function bingo(tickets, win) {
+      return tickets.map(ticket => ticket[0].split('').some(char => char.charCodeAt(0) === ticket[1]) ? true : false).filter(res => res === true).length >= win ? 'Winner!' : 'Loser!'
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ row-weights
+    </summary>
+
+    Description:  
+    Scenario  
+    Several people are standing in a row divided into two teams. The first person goes into team 1, the second goes into team 2, the third goes into team 1, and so on.
+
+    Task  
+    Given an array of positive integers (the weights of the people), return a new array/tuple of two integers, where the first one is the total weight of team 1, and the second one is the total weight of team 2.
+
+    Notes  
+    Array size is at least 1.
+    All numbers will be positive.
+    Input >> Output Examples
+    ```
+    rowWeights([13, 27, 49])  ==>  return (62, 27)
+    ```
+    Explanation:  
+    The first element 62 is the total weight of team 1, and the second element 27 is the total weight of team 2.
+    ```
+    rowWeights([50, 60, 70, 80])  ==>  return (120, 140)
+    ```
+    Explanation:  
+    The first element 120 is the total weight of team 1, and the second element 140 is the total weight of team 2.
+
+    ```
+    rowWeights([80])  ==>  return (80, 0)
+    ```
+    Explanation:  
+    The first element 80 is the total weight of team 1, and the second element 0 is the total weight of team 2.
+
+    Solution:  
+    ```javascript
+    function rowWeights(array) {
+      return array.reduce((result, value, index) => result.map((team, i) => index % 2 === i ? team + value : team), [0, 0])
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
       ✔️ 
     </summary>
 

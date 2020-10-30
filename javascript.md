@@ -701,6 +701,320 @@
 
   <details>
     <summary>
+      ✔️ scrolling-text
+    </summary>
+
+    Description:  
+    Let's create some scrolling text!
+
+    Your task is to complete the function which takes a string, and returns an array with all possible rotations of the given string, in uppercase.
+
+    Example
+    `scrollingText("codewars")` should return:
+    ```
+    [ "CODEWARS",
+      "ODEWARSC",
+      "DEWARSCO",
+      "EWARSCOD",
+      "WARSCODE",
+      "ARSCODEW",
+      "RSCODEWA",
+      "SCODEWAR" ]
+    ```
+    Good luck!
+
+    Solution:  
+    ```javascript
+    function scrollingText(text) {
+      return [...Array(text.length)].map((str, i) => (text.slice(i) + text.slice(0, i)).toUpperCase())
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ zipwith
+    </summary>
+
+    Description:  
+    Implement zipWith  
+    zipWith takes a function and two arrays and zips the arrays together, applying the function to every pair of values.  
+    The function value is one new array.
+
+    If the arrays are of unequal length, the output will only be as long as the shorter one.
+    (Values of the longer array are simply not used.)
+
+    Inputs should not be modified.
+
+    Examples
+    ```javascript
+    zipWith( Math.pow, [10,10,10,10], [0,1,2,3] )      =>  [1,10,100,1000]
+    zipWith( Math.max, [1,4,7,1,4,7], [4,7,1,4,7,1] )  =>  [4,7,7,4,7,7]
+
+    zipWith( function(a,b) { return a+b; }, [0,1,2,3], [0,1,2,3] )  =>  [0,2,4,6]  Both forms are valid.
+    zipWith( (a,b) => a+b, [0,1,2,3], [0,1,2,3] )  =>  [0,2,4,6]  Both are functions.
+    ```
+    Input validation  
+    Assume all input is valid.
+
+    Solution:  
+    ```javascript
+    function zipWith(fn,a0,a1) {
+      return [...Array(Math.min(a0.length, a1.length))].map((el, i) => fn(a0[i], a1[i]));
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ beginner-lost-without-a-map
+    </summary>
+
+    Description:  
+    Given an array of integers, return a new array with each value doubled.
+
+    For example:
+
+    `[1, 2, 3] --> [2, 4, 6]`
+
+    For the beginner, try to use the map method - it comes in very handy quite a lot so is a good one to know.
+
+    Solution:  
+    ```javascript
+    function maps(x){
+      return x.map(num => num * 2);
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ array-plus-array
+    </summary>
+
+    Description:  
+    I'm new to coding and now I want to get the sum of two arrays...actually the sum of all their elements. I'll appreciate for your help.
+
+    P.S. Each array includes only integer numbers. Output is a number too.
+
+    Solution:  
+    ```javascript
+    
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ array-plus-array
+    </summary>
+
+    Description:  
+    I'm new to coding and now I want to get the sum of two arrays...actually the sum of all their elements. I'll appreciate for your help.
+
+    P.S. Each array includes only integer numbers. Output is a number too.
+
+    Solution:  
+    ```javascript
+    function arrayPlusArray(arr1, arr2) {
+      return arr1.concat(arr2).reduce((sum, el) => sum + el, 0)
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ is-every-value-in-the-array-an-array
+    </summary>
+
+    Description:  
+    Is every value in the array an array?
+
+    This should only test the second array dimension of the array. The values of the nested arrays don't have to be arrays.
+
+    Examples:
+    ```
+    [[1],[2]] => true
+    ['1','2'] => false
+    [{1:1},{2:2}] => false
+    ```
+
+    Solution:  
+    ```javascript
+    const arrCheck = arr => arr.every(el => Array.isArray(el))
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ make-a-square-box
+    </summary>
+
+    Description:  
+    Easy; Make a box
+    Given a number as a parameter, return an array containing strings which form a box.
+    Like this:
+
+    n = 5
+    ```
+    [
+      '-----',
+      '-   -',
+      '-   -',
+      '-   -',
+      '-----'
+    ]
+    ```
+    n = 3
+    ```
+    [
+      '---',
+      '- -',
+      '---'
+    ]
+    ```
+
+    Solution:  
+    ```javascript
+    function box(num) {
+      return [...Array(num)].map((el, i) => i === 0 || i === num - 1 ? '-'.repeat(num) : `-${' '.repeat(num - 2)}-`);
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ magic-index
+    </summary>
+
+    Description:  
+    A magic index in an array A[1...n-1] is defined to be an index such that A[i] = i. Given a sorted array of distinct integers, write a method to find a magic index, if one exists, in array A.
+
+    ```
+    findMagic([-20,-10,2,10,20]); // Returns 2
+    ```
+
+    Solution:  
+    ```javascript
+    function findMagic(arr){  
+      const magicNum = arr.filter((el,i) => el === i)[0]
+      return magicNum ? magicNum : -1
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ flatten-and-sort-an-array
+    </summary>
+
+    Description:  
+
+    Given a two-dimensional array of integers, return the flattened version of the array with all the integers in the sorted (ascending) order.
+
+    Example:
+
+    Given [[3, 2, 1], [4, 6, 5], [], [9, 7, 8]], your function should return [1, 2, 3, 4, 5, 6, 7, 8, 9].
+
+    Addendum:
+
+    Please, keep in mind, that JavaScript is by default sorting objects alphabetically. For more information, please consult:
+
+    http://stackoverflow.com/questions/6093874/why-doesnt-the-sort-function-of-javascript-work-well
+
+    Solution:  
+    ```javascript
+    function flattenAndSort(array) {
+      return [].concat(...array).sort((a,b) => a-b > 0 ? 1 : -1);
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Two Sum
+    </summary>
+
+    Description:  
+    Write a function that takes an array of numbers (integers for the tests) and a target number. It should find two different items in the array that, when added together, give the target value. The indices of these items should then be returned in a tuple like so: (index1, index2).
+
+    For the purposes of this kata, some tests may have multiple answers; any valid solutions will be accepted.
+
+    The input will always be valid (numbers will be an array of length 2 or greater, and all of the items will be numbers; target will always be the sum of two different items from that array).
+
+    Based on: http://oj.leetcode.com/problems/two-sum/
+    ```
+    twoSum [1, 2, 3] 4 === (0, 2)
+    ```
+
+    Solution:  
+    ```javascript
+    function twoSum(numbers, target) {
+      for (const [i1, el1] of numbers.entries()) {
+        const checkResult = numbers.findIndex((el2, i2) => el1 + el2 === target && i2 !== i1)
+        if (checkResult !== -1) {
+          return [i1, checkResult]
+        }
+      }
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Length of missing array
+    </summary>
+
+    Description:  
+    You get an array of arrays.  
+    If you sort the arrays by their length, you will see, that their length-values are consecutive.
+    But one array is missing!
+
+
+    You have to write a method, that return the length of the missing array.
+    ```
+    Example:
+    [[1, 2], [4, 5, 1, 1], [1], [5, 6, 7, 8, 9]] --> 3
+    ```
+
+    If the array of arrays is null/nil or empty, the method should return 0.
+
+    When an array in the array is null or empty, the method should return 0 too!
+    There will always be a missing element and its length will be always between the given arrays.
+
+    Have fun coding it and please don't forget to vote and rank this kata! :-)
+
+    I have created other katas. Have a look if you like coding and challenges.
+
+    Solution:  
+    ```javascript
+    function getLengthOfMissingArray(arrayOfArrays) {
+      if (!arrayOfArrays || arrayOfArrays.some(arr => !arr)) {
+        return 0;
+      }
+      const sortedArray = arrayOfArrays.sort((a, b) => a.length - b.length);
+      const minLength = sortedArray[0] && sortedArray[0].length;
+      if (minLength) {
+        return sortedArray.map((arr, i) => arr.length - i - minLength).findIndex(el => el === 1) + minLength;
+      } else {
+        return 0;
+      }
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
       ✔️ 
     </summary>
 

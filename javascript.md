@@ -1015,6 +1015,168 @@
 
   <details>
     <summary>
+      ✔️ Data Reverse
+    </summary>
+
+    Description:  
+    A stream of data is received and needs to be reversed.
+
+    Each segment is 8 bits long, meaning the order of these segments needs to be reversed, for example:
+
+    ```
+    11111111  00000000  00001111  10101010
+    (byte1)   (byte2)   (byte3)   (byte4)
+    ```
+    should become:
+    ```
+    10101010  00001111  00000000  11111111
+    (byte4)   (byte3)   (byte2)   (byte1)
+    ```
+    The total number of bits will always be a multiple of 8.
+
+    The data is given in an array as such:
+    ```
+    [1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,1,0,1,0,1,0]
+    ```
+    Note: In the C and NASM languages you are given the third parameter which is the number of segment blocks.
+
+    Solution:  
+    ```javascript
+    function dataReverse(data) {
+      let resultArr = [];
+      for (let i = data.length / 8; i > 0; i--) {
+        resultArr = resultArr.concat(data.slice((i - 1) * 8, i * 8));
+      }
+      return resultArr
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Duplicate Encoder
+    </summary>
+
+    Description:  
+    The goal of this exercise is to convert a string to a new string where each character in the new string is `"("` if that character appears only once in the original string, or `")"` if that character appears more than once in the original string. Ignore capitalization when determining if a character is a duplicate.
+
+    Examples
+    ```
+    "din"      =>  "((("
+    "recede"   =>  "()()()"
+    "Success"  =>  ")())())"
+    "(( @"     =>  "))((" 
+    ```
+    Notes
+
+    Assertion messages may be unclear about what they display in some languages. If you read "...It Should encode XXX", the "XXX" is the expected result, not the input!
+
+    Solution:  
+    ```javascript
+    function duplicateEncode(word) {
+      return word.split('').map((letter, i) => (word.slice(0, i) + word.slice(i + 1)).toLowerCase().includes(letter.toLowerCase()) ? ')' : '(').join('');
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Alternate capitalization
+    </summary>
+
+    Description:  
+    Given a string, capitalize the letters that occupy even indexes and odd indexes separately, and return as shown below. Index `0` will be considered even.
+
+    For example, `capitalize("abcdef") = ['AbCdEf', 'aBcDeF']`. See test cases for more examples.
+
+    The input will be a lowercase string with no spaces.
+
+    Good luck!
+
+    Solution:  
+    ```javascript
+    function capitalize(s) {
+      return [
+        s.split('').map((letter, i) => i % 2 ? letter : letter.toUpperCase()).join(''),
+        s.split('').map((letter, i) => i % 2 ? letter.toUpperCase() : letter).join('')
+      ];
+    };
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Sort the odd
+    </summary>
+
+    Description:  
+    You have an array of numbers.
+    Your task is to sort ascending odd numbers but even numbers must be on their places.
+
+    Zero isn't an odd number and you don't need to move it. If you have an empty array, you need to return it.
+
+    Example
+    ```
+    sortArray([5, 3, 2, 8, 1, 4]) == [1, 3, 2, 8, 5, 4]
+    ```
+    Solution:  
+    ```javascript
+    function sortArray(array) {
+      const oddNumbers = array.filter(num => num % 2).sort((a, b) => a - b);
+      let oddIndex = 0;
+      return array.map(num => {
+        if (num % 2) {
+          oddIndex++
+          return oddNumbers[oddIndex - 1]
+        } else {
+          return num
+        }
+      })
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Format a string of names like "Bart, Lisa & Maggie"
+    </summary>
+
+    Description:  
+    Given: an array containing hashes of names
+
+    Return: a string formatted as a list of names separated by commas except for the last two names, which should be separated by an ampersand.
+
+    Example:
+    ```
+    list([ {name: 'Bart'}, {name: 'Lisa'}, {name: 'Maggie'} ])
+    // returns 'Bart, Lisa & Maggie'
+
+    list([ {name: 'Bart'}, {name: 'Lisa'} ])
+    // returns 'Bart & Lisa'
+
+    list([ {name: 'Bart'} ])
+    // returns 'Bart'
+
+    list([])
+    // returns ''
+    ```
+    Note: all the hashes are pre-validated and will only contain A-Z, a-z, '-' and '.'.
+
+    Solution:  
+    ```javascript
+    function list(names) {
+      return names.reduce((res, elem, i) => res = `${res}${i === 0 ? '' : i === names.length - 1 ? ' & ' : ', '}${elem.name}`, '')
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
       ✔️ 
     </summary>
 

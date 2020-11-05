@@ -1177,6 +1177,195 @@
 
   <details>
     <summary>
+      ✔️ Proof Read
+    </summary>
+
+    Description:  
+    You've just finished writing the last chapter for your novel when a virus suddenly infects your document. It has swapped the 'i's and 'e's in 'ei' words and capitalised random letters. Write a function which will:
+
+    a) remove the spelling errors in 'ei' words. (Example of 'ei' words: their, caffeine, deceive, weight)
+
+    b) only capitalise the first letter of each sentence. Make sure the rest of the sentence is in lower case.
+
+    Example: He haD iEght ShOTs of CAffIEne. --> He had eight shots of caffeine.
+
+    Solution:  
+    ```javascript
+    function proofread(str) {
+      return str.toLowerCase().replace(/ie/ig, 'ei').replace(/(^|[!?.]\s+)([a-z])/g, (m, g1, g2) => g1 + g2.toUpperCase());
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Simple Fun #79: Delete a Digit
+    </summary>
+
+    Description:  
+    Task  
+    Given an integer `n`, find the maximal number you can obtain by deleting exactly one digit of the given number.
+
+    Example
+    For `n = 152`, the output should be `52`;
+
+    For `n = 1001`, the output should be `101`.
+
+    Input/Output
+    `[input]` integer `n`
+
+    Constraints: `10 ≤ n ≤ 1000000`.
+
+    `[output]` an integer
+
+    Solution:  
+    ```javascript
+    function deleteDigit(n) {
+      return Math.max(...[...String(n)].map((el, i, arr) => Number(arr.filter((dig, index) => index !== i).join(''))));
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Equal Sides Of An Array
+    </summary>
+
+    Description:  
+    You are going to be given an array of integers. Your job is to take that array and find an index N where the sum of the integers to the left of N is equal to the sum of the integers to the right of N. If there is no index that would make this happen, return `-1`.
+
+    For example:
+
+    Let's say you are given the array `{1,2,3,4,3,2,1}`: Your function will return the index 3, because at the 3rd position of the array, the sum of left side of the index (`{1,2,3}`) and the sum of the right side of the index (`{3,2,1}`) both equal `6`.
+
+    Let's look at another one.
+    You are given the array `{1,100,50,-51,1,1}`: Your function will return the index `1`, because at the 1st position of the array, the sum of left side of the index (`{1}`) and the sum of the right side of the index (`{50,-51,1,1}`) both equal `1`.
+
+    Last one:  
+    You are given the array `{20,10,-80,10,10,15,35}`
+    At index 0 the left side is `{}`
+    The right side is `{10,-80,10,10,15,35}`
+    They both are equal to `0` when added. (Empty arrays are equal to 0 in this problem)
+    Index 0 is the place where the left side and right side are equal.
+
+    Note: Please remember that in most programming/scripting languages the index of an array starts at 0.
+
+    Input:  
+    An integer array of length `0 < arr < 1000`. The numbers in the array can be any integer positive or negative.
+
+    Output:  
+    The lowest index `N` where the side to the left of `N` is equal to the side to the right of `N`. If you do not find an index that fits these rules, then you will return `-1`.
+
+    Note:  
+    If you are given an array with multiple answers, return the lowest correct index.
+
+    Solution:  
+    ```javascript
+    function findEvenIndex(arr) {
+      const arrSum = (array) => array.reduce((sum, el) => sum + el, 0)
+      return arr.findIndex((el, i, arr) => arrSum(arr.slice(0, i)) === arrSum(arr.slice(i + 1)))
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Easy Balance Checking
+    </summary>
+
+    Description:  
+    You are given a (small) check book as a - sometimes - cluttered (by non-alphanumeric characters) string:
+
+    ```
+    "1000.00
+    125 Market 125.45
+    126 Hardware 34.95
+    127 Video 7.45
+    128 Book 14.32
+    129 Gasoline 16.10"
+    The first line shows the original balance. Each other line (when not blank) gives information: check number, category, check amount.
+    ```
+    First you have to clean the lines keeping only letters, digits, dots and spaces.
+
+    Then return a report as a string (underscores show spaces -- don't put them in your solution. They are there so you can see them and how many of them you need to have):
+    ```
+    "Original_Balance:_1000.00
+    125_Market_125.45_Balance_874.55
+    126_Hardware_34.95_Balance_839.60
+    127_Video_7.45_Balance_832.15
+    128_Book_14.32_Balance_817.83
+    129_Gasoline_16.10_Balance_801.73
+    Total_expense__198.27
+    Average_expense__39.65"
+    On each line of the report you have to add the new balance and then in the last two lines the total expense and the average expense. So as not to have a too long result string we don't ask for a properly formatted result.
+    ```
+    Notes  
+    - It may happen that one (or more) line(s) is (are) blank.
+    - Round to 2 decimals your results.
+    - The line separator of results may depend on the language `\n` or `\r\n`. See examples in the "Sample tests".
+    - R language: Don't use R's base function "mean()" that could give results slightly different from expected ones.
+
+    Solution:  
+    ```javascript
+    function balance(book) {
+      const normNum = (str) => Number(str).toFixed(2);
+      return book
+        .replace(/[^\w|^\.|^\s]/g, '')
+        .split('\n')
+        .filter(el => el.length > 0)
+        .reduce((dataObj, el, i, arr) => {
+          if (i === 0) {
+            dataObj.text = `Original Balance: ${el}\r\n`;
+            dataObj.originalBalance = normNum(el);
+            dataObj.currentBalance = normNum(el);
+          } else {
+            const rowAsArr = el.split(' ');
+            rowAsArr[2] = normNum(rowAsArr[2]);
+            dataObj.currentBalance = normNum(dataObj.currentBalance - rowAsArr[2]);
+            dataObj.text += `${rowAsArr.join(' ')} Balance ${dataObj.currentBalance}\r\n`;
+            if (i === arr.length - 1) {
+              dataObj.text += `Total expense  ${normNum(dataObj.originalBalance - dataObj.currentBalance)}\r\n`;
+              dataObj.text += `Average expense  ${normNum((dataObj.originalBalance - dataObj.currentBalance) / (arr.length - 1))}`;
+            }
+          }
+          return dataObj;
+        }, {}).text;
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Sort with a sorting array
+    </summary>
+
+    Description:  
+    Sort an array according to the indices in another array. It is guaranteed that the two arrays have the same size, and that the sorting array has all the required indices.
+
+    initialArray = ['x', 'y', 'z'] sortingArray = [ 1, 2, 0]
+
+    sort(initialArray, sortingArray) => ['z', 'x', 'y']
+
+    sort(['z', 'x', 'y'], [0, 2, 1]) => ['z', 'y', 'x']
+
+    Solution:  
+    ```javascript
+    function sort(initialArray, sortingArray) {
+      return initialArray.reduce((arr, el, i) => {
+        arr[sortingArray[i]] = initialArray[i];
+        return arr;
+      }, []);
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
       ✔️ 
     </summary>
 

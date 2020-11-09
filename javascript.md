@@ -1366,6 +1366,144 @@
 
   <details>
     <summary>
+      ✔️ Zero-plentiful Array
+    </summary>
+
+    Description:  
+    An array is called zero-plentiful if it contains at least one 0 and every sequence of 0s is of length at least 4. Your task is to return the number of zero sequences if the given array is zero-plentiful else 0.
+
+    Solution:  
+    ```javascript
+    function zeroPlentiful(arr) {
+      const strSeqs = arr.join('').match(/0+/g);
+      if (strSeqs && Math.min(...strSeqs.map(el => el.length)) >= 4) {
+        return strSeqs.length;
+      } else {
+        return 0;
+      }
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ RGB To Hex Conversion
+    </summary>
+
+    Description:  
+    The rgb function is incomplete. Complete it so that passing in RGB decimal values will result in a hexadecimal representation being returned. Valid decimal values for RGB are 0 - 255. Any values that fall out of that range must be rounded to the closest valid value.
+
+    Note: Your answer should always be 6 characters long, the shorthand with 3 will not work here.
+
+    The following are examples of expected output values:
+    ```
+    rgb(255, 255, 255) // returns FFFFFF
+    rgb(255, 255, 300) // returns FFFFFF
+    rgb(0,0,0) // returns 000000
+    rgb(148, 0, 211) // returns 9400D3
+    ```
+
+    Solution:  
+    ```javascript
+    function rgb(r, g, b){
+      return [r,g,b].map(el => ('00' + Math.min(Math.max(el, 0), 255).toString(16)).slice(-2)).join('').toUpperCase()
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Birthday I - Cake
+    </summary>
+
+    Description:  
+    It's your Birthday. Your colleagues buy you a cake. The numbers of candles on the cake is provided (x). Please note this is not reality, and your age can be anywhere up to 1,000. Yes, you would look a mess.
+
+    As a surprise, your colleagues have arranged for your friend to hide inside the cake and burst out. They pretend this is for your benefit, but likely it is just because they want to see you fall over covered in cake. Sounds fun!
+
+    When your friend jumps out of the cake, he/she will knock some of the candles to the floor. If the number of candles that fall is higher than 70% of total candles (x), the carpet will catch fire.
+
+    You will work out the number of candles that will fall from the provided string (y). You must add up the character ASCII code of each even indexed (assume a 0 based indexing) character in y, with the alphabetical position of each odd indexed character in y to give the string a total.
+
+    example: 'abc' --> a=97, b=2, c=99 --> y total = 198.
+
+    If the carpet catches fire, return 'Fire!', if not, return 'That was close!'.
+
+    Solution:  
+    ```javascript
+    function cake(x, y) {
+      return y
+        .split('')
+        .reduce((sum, el, i) => sum + el.charCodeAt(0) + (i % 2 ? -96 : 0), sum = 0) > (x * 0.7).toFixed(0) ? 'Fire!' : 'That was close!'
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Alphabetized
+    </summary>
+
+    Description:  
+    The alphabetized kata  
+    Re-order the characters of a string, so that they are concatenated into a new string in "case-insensitively-alphabetical-order-of-appearance" order. Whitespace and punctuation shall simply be removed!
+
+    The input is restricted to contain no numerals and only words containing the english alphabet letters.
+
+    Example:
+    ```
+    alphabetized("The Holy Bible") // "BbeehHilloTy"
+    ```
+
+    Solution:  
+    ```javascript
+    function alphabetized(s) {
+      function charSorting(a, b) {
+        if (a[0].toUpperCase() > b[0].toUpperCase()) return 1;
+        if (a[0].toUpperCase() < b[0].toUpperCase()) return -1;
+        return a[1] - b[1]
+      }
+      return s
+        .replace(/[^a-zA-Z]+/g, '')
+        .split('')
+        .map((el, i) => [el, i])
+        .sort(charSorting)
+        .map(el => el[0])
+        .join('')
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Smallest value of an array
+    </summary>
+
+    Description:  
+    Write a function that can return the smallest value of an array or the index of that value. The function's 2nd parameter will tell whether it should return the value or the index.
+
+    Assume the first parameter will always be an array filled with at least 1 number and no duplicates. Assume the second parameter will be a string holding one of two values: 'value' and 'index'.
+    ```
+    min([1,2,3,4,5], 'value') // => 1
+    min([1,2,3,4,5], 'index') // => 0
+    ```
+
+    Solution:  
+    ```javascript
+    function min(arr, toReturn) {
+      const minValue = Math.min(...arr);
+      return toReturn === 'value' ? minValue : arr.indexOf(minValue)
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
       ✔️ 
     </summary>
 

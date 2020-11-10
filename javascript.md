@@ -287,7 +287,7 @@
 
 * <details>
   <summary>
-    ⏳ Методы массивов. (Задачки)
+    ✔️ Методы массивов. (Задачки)
   </summary>
 
   list of exersises:
@@ -1504,15 +1504,198 @@
 
   <details>
     <summary>
-      ✔️ 
+      ✔️ Element equals its index
     </summary>
 
     Description:  
-    
+    Given a sorted array of distinct integers, write a function `indexEqualsValue` that returns the lowest index for which `array[index] == index`. Return `-1` if there is no such index.
+
+    Your algorithm should be very performant.
+
+    [input] array of integers ( with 0-based nonnegative indexing )
+    [output] integer
+
+    Examples:
+    ```
+    input: [-8,0,2,5]
+    output: 2 # since array[2] == 2
+
+    input: [-1,0,3,6]
+    output: -1 # since no index in array satisfies array[index] == index
+    ```
+    Random Tests Constraints:
+    Array length: 200 000
+
+    Amount of tests: 1 000
+
+    Time limit: 150 ms
 
     Solution:  
     ```javascript
-    
+    function indexEqualsValue(a) {
+      let start = 0;
+      let end = a.length - 1;
+      while (start != end) {
+        let midEl = midElement();
+        if (a[midEl] > midEl) {
+          end = midEl - 1;
+        } else if (a[midEl] < midEl) {
+          start = midEl;
+        } else {
+          while (a[midEl] == midEl) {
+            midEl--;
+          }
+          return midEl + 1;
+        }
+      }
+      if (a[midElement()] == midElement()) {
+        return midElement()
+      }
+      return -1;
+
+      function midElement() {
+        return Math.round((start + end) / 2);
+      }
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Sort by Last Char
+    </summary>
+
+    Description:  
+    Given a string of words (x), you need to return an array of the words, sorted alphabetically by the final character in each.
+
+    If two words have the same last letter, they returned array should show them in the order they appeared in the given string.
+
+    All inputs will be valid.
+
+    Solution:  
+    ```javascript
+    function last(x) {
+      return x.split(' ').sort((a, b) => a[a.length - 1] > b[b.length - 1] ? 1 : -1)
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Sort array by string length
+    </summary>
+
+    Description:  
+    Write a function that takes an array of strings as an argument and returns a sorted array containing the same strings, ordered from shortest to longest.
+
+    For example, if this array were passed as an argument:
+
+    `["Telescopes", "Glasses", "Eyes", "Monocles"]`
+
+    Your function would return the following array:
+
+    `["Eyes", "Glasses", "Monocles", "Telescopes"]`
+
+    All of the strings in the array passed to your function will be different lengths, so you will not have to decide how to order multiple strings of the same length.
+
+    Solution:  
+    ```javascript
+    function sortByLength(array) {
+      return array.sort((a, b) => a.length - b.length);
+    };
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ Binary Search
+    </summary>
+
+    Description:  
+    A binary search algorithm is a way to look for the index of a certain value in a sorted array.
+
+    The algorithm will progressively cut the original array into smaller and smaller chunks until it finds the desired value. If the desired value is not found, return -1.
+
+    Let's take a look at an illustration from Wikipedia:
+
+    > The list to be searched: L = 1 3 4 6 8 9 11. The value to be found: X = 4.
+
+    > Compare X to 6. X is smaller. Repeat with L = 1 3 4.
+
+    > Compare X to 3. X is bigger. Repeat with L = 4.
+
+    > Compare X to 4. They are equal. We're done, we found X.
+
+    [More information on Wikipedia](http://en.wikipedia.org/wiki/Binary_search_algorithm)
+
+    This makes it efficient for particularly large arrays because it doesn't have to completely iterate over them, so it will only take logarithmic time.
+
+    Write a function binSearch that can perform a binary search on large arrays and not time out. The function will have 2 parameters, which are a sorted array and an element to search.
+
+    Note: indexOf, lastIndexOf, eval, sort and sortedIndex are disabled.
+
+    Solution:  
+    ```javascript
+    function binSearch(arr, toSearch) {
+      let start = 0;
+      let end = arr.length - 1;
+      while (start != end) {
+        let midEl = midElement();
+        if (arr[midEl] > toSearch) {
+          end = midEl - 1;
+        } else if (arr[midEl] < toSearch) {
+          start = midEl;
+        } else {
+          while (arr[midEl] == toSearch) {
+            midEl--;
+          }
+          return midEl + 1;
+        }
+      }
+      if (arr[midElement()] == midElement()) {
+        return midElement()
+      }
+      return -1;
+
+      function midElement() {
+        return Math.round((start + end) / 2);
+      }
+    }
+    ```
+
+  </details>
+
+  <details>
+    <summary>
+      ✔️ I love big nums and I cannot lie
+    </summary>
+
+    Description:  
+    Write
+
+    ```
+    function biggest(nums)
+    ```
+    that given an array of numbers >= 0, will arrange them such that they form the biggest number.
+
+    For example:
+    ```
+    biggest([1, 2, 3]) === '321'
+    biggest([3, 30, 34, 5, 9]) === '9534330'
+    ```
+    The results will be large so make sure to return a string.
+
+    Solution:  
+    ```javascript
+    function biggest(nums) {
+      return nums
+      .sort((a, b) => [a, b].join('') > [b, a].join('') ? -1 : 1)
+      .join('')
+      .replace(/(^0*)(?=.$)/, '');
+    };
     ```
 
   </details>
